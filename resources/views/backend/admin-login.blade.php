@@ -1,165 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Admin-Login</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Admin Login</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+  <title>Sign in</title>
 </head>
 <style>
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,700);
-@import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
-
-body, html {
-  height: 100%;
-}
-body {
-  font-family: 'Open Sans';
-  font-weight: 100;
-  display: flex;
-  overflow: hidden;
-}
-input {
-  ::-webkit-input-placeholder {
-     color: rgba(255,255,255,0.7);
-  }
-  ::-moz-placeholder {
-     color: rgba(255,255,255,0.7);  
-  }
-  :-ms-input-placeholder {  
-     color: rgba(255,255,255,0.7);  
-  }
-  &:focus {
-    outline: 0 transparent solid;
-    ::-webkit-input-placeholder {
-     color: rgba(0,0,0,0.7);
+          body {
+        background-color: #F3EBF6;
+        font-family: 'Ubuntu', sans-serif;
     }
-    ::-moz-placeholder {
-       color: rgba(0,0,0,0.7);  
+    
+    .main {
+        background-color: #FFFFFF;
+        width: 400px;
+        height: 400px;
+        margin: 7em auto;
+        border-radius: 1.5em;
+        box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
     }
-    :-ms-input-placeholder {  
-       color: rgba(0,0,0,0.7);  
+    
+    .sign {
+        padding-top: 40px;
+        color: #8C55AA;
+        font-family: 'Ubuntu', sans-serif;
+        font-weight: bold;
+        font-size: 23px;
     }
-  }
-}
-
-.login-form {
-  //background: #222;
-  //box-shadow: 0 0 1rem rgba(0,0,0,0.3);
-  min-height: 10rem;
-  margin: auto;
-  max-width: 50%;
-  padding: .5rem;
-}
-.login-text {
-  //background: hsl(40,30,60);
-  //border-bottom: .5rem solid white;
-  color: white;
-  font-size: 1.5rem;
-  margin: 0 auto;
-  max-width: 50%;
-  padding: .5rem;
-  text-align: center;
-  //text-shadow: 1px -1px 0 rgba(0,0,0,0.3);
-  .fa-stack-1x {
-    color: black;
-  }
-}
-
-.login-username, .login-password {
-  background: transparent;
-  border: 0 solid;
-  border-bottom: 1px solid rgba(white, .5);
-  color: white;
-  display: block;
-  margin: 1rem;
-  padding: .5rem;
-  transition: 250ms background ease-in;
-  width: calc(100% - 3rem);
-  &:focus {
-    background: white;
-    color: black;
-    transition: 250ms background ease-in;
-  }
-}
-
-.login-forgot-pass {
-  //border-bottom: 1px solid white;
-  bottom: 0;
-  color: white;
-  cursor: pointer;
-  display: block;
-  font-size: 75%;
-  left: 0;
-  opacity: 0.6;
-  padding: .5rem;
-  position: absolute;
-  text-align: center;
-  //text-decoration: none;
-  width: 100%;
-  &:hover {
-    opacity: 1;
-  }
-}
-.login-submit {
-  border: 1px solid white;
-  background: transparent;
-  color: white;
-  display: block;
-  margin: 1rem auto;
-  min-width: 1px;
-  padding: .25rem;
-  transition: 250ms background ease-in;
-  &:hover, &:focus {
-    background: white;
-    color: black;
-    transition: 250ms background ease-in;
-  }
-}
-[class*=underlay] {
-  left: 0;
-  min-height: 100%;
-  min-width: 100%;
-  position: fixed;
-  top: 0;
-}
-.underlay-photo {
-  animation: hue-rotate 6s infinite;
-  background: url('https://31.media.tumblr.com/41c01e3f366d61793e5a3df70e46b462/tumblr_n4vc8sDHsd1st5lhmo1_1280.jpg');
-  background-size: cover;
-  -webkit-filter: grayscale(30%);
-  z-index: -1;
-}
-.underlay-black {
-  background: rgba(0,0,0,0.7);
-  z-index: -1;
-}
-
-@keyframes hue-rotate {
-  from {
-    -webkit-filter: grayscale(30%) hue-rotate(0deg);
-  }
-  to {
-    -webkit-filter: grayscale(30%) hue-rotate(360deg);
-  }
-}
+    
+    .un {
+    width: 76%;
+    color: rgb(38, 50, 56);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    background: rgba(136, 126, 126, 0.04);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    box-sizing: border-box;
+    border: 2px solid rgba(0, 0, 0, 0.02);
+    margin-bottom: 50px;
+    margin-left: 46px;
+    text-align: center;
+    margin-bottom: 27px;
+    font-family: 'Ubuntu', sans-serif;
+    }
+    
+    form.form1 {
+        padding-top: 40px;
+    }
+    
+    .pass {
+            width: 76%;
+    color: rgb(38, 50, 56);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    background: rgba(136, 126, 126, 0.04);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    box-sizing: border-box;
+    border: 2px solid rgba(0, 0, 0, 0.02);
+    margin-bottom: 50px;
+    margin-left: 46px;
+    text-align: center;
+    margin-bottom: 27px;
+    font-family: 'Ubuntu', sans-serif;
+    }
+    
+   
+    .un:focus, .pass:focus {
+        border: 2px solid rgba(0, 0, 0, 0.18) !important;
+        
+    }
+    
+    .submit {
+      cursor: pointer;
+        border-radius: 5em;
+        color: #fff;
+        background: linear-gradient(to right, #9C27B0, #E040FB);
+        border: 0;
+        padding-left: 40px;
+        padding-right: 40px;
+        padding-bottom: 10px;
+        padding-top: 10px;
+        font-family: 'Ubuntu', sans-serif;
+        margin-left: 35%;
+        font-size: 13px;
+        box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+    }
+    
+    .forgot {
+        text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
+        color: #E1BEE7;
+        padding-top: 15px;
+    }
+    
+    a {
+        text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
+        color: #E1BEE7;
+        text-decoration: none
+    }
+    
+    @media (max-width: 600px) {
+        .main {
+            border-radius: 0px;
+        }
+      }
 </style>
 <body>
-    <form class="login-form" method="POST" action="{{url('/admin/login')}}">
-        @csrf
-        <p class="login-text">
-            <span class="fa-stack fa-lg">
-                <i class="fa fa-circle fa-stack-2x"></i>
-                <i class="fa fa-lock fa-stack-1x"></i>
-            </span>
-        </p>
-        <input type="email" class="login-username" name="email" value="{{old('email')}}" placeholder="Email" required/>
-        <input type="password" class="login-password" id="password" name="password" placeholder="Password" />
-        <input type="submit" name="Login" value="Login" class="login-submit" />
-    </form>
-    <a href="#" class="login-forgot-pass">forgot password?</a>
-    <div class="underlay-photo"></div>
-    <div class="underlay-black"></div>
+  <form action="{{ route('login') }}" method="POST">
+    @csrf
+    <div class="main">
+    <p class="sign" align="center">Sign in</p>
+    <form class="form1">
+      <input class="un" type="text" name="email" align="center" placeholder="Username">
+      <input class="pass" type="password" name="password" align="center" placeholder="Password">
+      <button class="submit" type="submit">Log In</button>
+      <p class="forgot" align="center"><a href="#">Forgot Password?</p>         
+    </div> 
+  </form>
 </body>
 </html>
