@@ -26,8 +26,7 @@
             <!--begin::User Menu Dropdown-->
             <li class="nav-item dropdown user-menu">
               <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                <img src="{{asset('backend/dist/assets/img/user2-160x160.jpg')}}" class="user-image rounded-circle shadow" alt="User Image" />
-                <span class="d-none d-md-inline">Alexander Pierce</span>
+                <span class="d-none d-md-inline">Admin</span>
               </a>
               <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                 <!--begin::Menu Body-->
@@ -37,7 +36,7 @@
                 <!--begin::Menu Footer-->
                 <li class="user-footer">
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
-                  <a href="#" class="btn btn-default btn-flat float-end">Sign out</a>
+                  <a href="{{url('/admin/logout')}}" class="btn btn-default btn-flat float-end">Sign out</a>
                 </li>
                 <!--end::Menu Footer-->
               </ul>

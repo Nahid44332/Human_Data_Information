@@ -127,7 +127,7 @@
       <input class="un" type="text" name="email" align="center" placeholder="Username">
       <input class="pass" type="password" name="password" align="center" placeholder="Password">
       <button class="submit" type="submit">Log In</button>
-      <p class="forgot" align="center"><a href="#">Forgot Password?</p>         
+      {{-- <p class="forgot" align="center"><a href="#">Forgot Password?</p>--}}
     </div> 
   </form>
 </body>

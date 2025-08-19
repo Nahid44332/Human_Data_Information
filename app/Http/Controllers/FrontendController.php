@@ -33,4 +33,24 @@ class FrontendController extends Controller
         toastr()->success('You Ragistert successfully!');
         return redirect()->back();
     }
+
+   public function humanIdentify(Request $request)
+    {
+    if(isset($request->search)){
+        $humans = HumanData::where('name', 'LIKE', '%'.$request->search.'%')
+        ->orwhere('nid', 'LIKE', '%'.$request->search.'%')
+        ->orwhere('phone', 'LIKE', '%'.$request->search.'%')->get();    
+    }
+    else{
+        $humans = [];
+    }
+    return view('frontend.human-identy', compact('humans'));
+    }
+
+    public function humanDetails($id)
+    {
+    $human = HumanData::find($id);
+    return view('frontend.human-details', compact('human'));
+    }
+
 }
