@@ -48,6 +48,14 @@
                   </li>
                 </ul>
               </li>
+               <li class="nav-item menu">
+                <a href="{{url('/admin/logout')}}" class="nav-link">
+                  <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                  <p>
+                    LogOut
+                  </p>
+                </a>
+              </li>
             </ul>
             <!--end::Sidebar Menu-->
           </nav>

@@ -34,6 +34,8 @@
     </div>
     <!--end::App Wrapper-->
     @include('backend.include.script')
+
+    @stack('script')
   </body>
   <!--end::Body-->
 </html>

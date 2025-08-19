@@ -123,7 +123,8 @@
                             <td>{{$human->gender}}</td>
                             <td>{{$human->address}}</td>
                             <td>
-                                <a href="{{url('/admin/human-list/delete/'.$human->id)}}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
+                                <a href="{{url('/admin/human-list/edit/'.$human->id)}}" class="btn" style="color: blue"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a href="{{url('/admin/human-list/delete/'.$human->id)}}" class="btn" style="color: red"><i class="fa-solid fa-trash"></i></a>
                             </td>
                         </tr>
                         @endforeach

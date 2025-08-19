@@ -24,4 +24,6 @@ Route::get('/admin/logout' , [AdminAuthController::class ,'adminLogout']);
 Auth::routes();
 Route::get('/admin/dashboard', [AdminController::class, 'adminDashboard']);
 Route::get('/admin/human-list', [AdminController::class, 'humanList']);
+Route::get('/admin/human-list/edit/{id}', [AdminController::class, 'humanListEdit']);
 Route::get('/admin/human-list/delete/{id}', [AdminController::class, 'humanListDelete']);
+Route::post('/admin/human-list/update/{id}', [AdminController::class, 'humanListUpdate']);
