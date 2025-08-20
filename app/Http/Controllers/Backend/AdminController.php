@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\HumanData;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use PHPUnit\Framework\Constraint\Count;
 
 class AdminController extends Controller
 {
@@ -13,12 +13,16 @@ class AdminController extends Controller
     {
         $this->middleware('auth');
     }
-    public function adminDashboard()
-    {
-        $humans = HumanData::get();
-        $humanscount = $humans->count();
-        return view('backend.admin-dashboard', compact('humans', 'humanscount'));
-    }
+   public function adminDashboard()
+{
+    $today = Carbon::today();
+    $todayHuman = HumanData::whereDate('created_at', $today)->count();
+    $weeklyHumans = HumanData::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
+    $monthlyHumans = HumanData::whereBetween('created_at', [Carbon::now()->startOfMonth(),Carbon::now()->endOfMonth()])->count();
+    $humanscount = HumanData::count();
+
+    return view('backend.admin-dashboard', compact( 'humanscount', 'todayHuman', 'weeklyHumans', 'monthlyHumans'));
+}
     public function humanList()
     {
         $humans = HumanData::get();
@@ -56,5 +60,59 @@ class AdminController extends Controller
         $humans->save();
         toastr()->success('Human Update Successfully');
         return redirect('/admin/human-list');
+    }
+    public function todayHuman()
+    {
+        $today = Carbon::today();
+
+        $todayHuman = HumanData::whereDate('created_at', $today)->get();
+        return view('backend.today-humans', compact('todayHuman'));
+    }
+    public function weeklyHumans()
+    {
+        $startOfWeek = Carbon::now()->startOfWeek(); // সপ্তাহের শুরু
+        $endOfWeek = Carbon::now()->endOfWeek();     // সপ্তাহের শেষ
+
+        $weeklyHumans = HumanData::whereBetween('created_at', [$startOfWeek, $endOfWeek])->get();
+
+        return view('backend.weekly-humans', compact('weeklyHumans'));
+    }
+
+    public function monthlyHumans()
+    {
+        $startOfMonth = Carbon::now()->startOfMonth(); // মাসের শুরু
+        $endOfMonth = Carbon::now()->endOfMonth();     // মাসের শেষ
+
+        $monthlyHumans = HumanData::whereBetween('created_at', [$startOfMonth, $endOfMonth])->get();
+
+        return view('backend.monthly-humans', compact('monthlyHumans'));
+    }
+
+    // add Human
+    public function addHumans()
+    {
+        return view('backend.add-human');
+    }
+
+    public function storeHumans(Request $request)
+    {
+        $humanData = new HumanData();
+
+        $humanData->name = $request->name;
+        $humanData->father_name = $request->father_name;
+        $humanData->mother_name = $request->mother_name;
+        $humanData->nid = $request->nid;
+        $humanData->dob = $request->dob;
+        $humanData->age = $request->age;
+        $humanData->email = $request->email;
+        $humanData->blood = $request->blood;
+        $humanData->phone = $request->phone;
+        $humanData->address = $request->address;
+        $humanData->gender = $request->gender;
+        $humanData->profession = $request->profession;
+
+        $humanData->save();
+        toastr()->success('You Ragistert successfully!');
+        return redirect()->back();
     }
 }

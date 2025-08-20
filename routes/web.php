@@ -27,3 +27,10 @@ Route::get('/admin/human-list', [AdminController::class, 'humanList']);
 Route::get('/admin/human-list/edit/{id}', [AdminController::class, 'humanListEdit']);
 Route::get('/admin/human-list/delete/{id}', [AdminController::class, 'humanListDelete']);
 Route::post('/admin/human-list/update/{id}', [AdminController::class, 'humanListUpdate']);
+Route::get('/admin/today-humans', [AdminController::class, 'todayHuman']);
+Route::get('/admin/weekly-humans', [AdminController::class, 'weeklyHumans']);
+Route::get('/admin/monthly-humans', [AdminController::class, 'monthlyHumans']);
+
+// add Human
+Route::get('/admin/add-human', [AdminController::class, 'addHumans']);
+Route::post('/admin/store-human', [AdminController::class, 'storeHumans']); 
