@@ -85,21 +85,15 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{url('/admin/report/blood-group')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Blood Group Report</p>
+                                <p>Blood Group</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{url('/admin/report/age')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Age Report</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Gender Report</p>
+                                <p>Age</p>
                             </a>
                         </li>
                     </ul>

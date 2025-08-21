@@ -13,19 +13,31 @@ class AdminController extends Controller
     {
         $this->middleware('auth');
     }
-   public function adminDashboard()
-{
-    $today = Carbon::today();
-    $todayHuman = HumanData::whereDate('created_at', $today)->count();
-    $weeklyHumans = HumanData::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
-    $monthlyHumans = HumanData::whereBetween('created_at', [Carbon::now()->startOfMonth(),Carbon::now()->endOfMonth()])->count();
-    $humanscount = HumanData::count();
-
-    return view('backend.admin-dashboard', compact( 'humanscount', 'todayHuman', 'weeklyHumans', 'monthlyHumans'));
-}
-    public function humanList()
+    public function adminDashboard()
     {
-        $humans = HumanData::get();
+        $today = Carbon::today();
+        $todayHuman = HumanData::whereDate('created_at', $today)->count();
+        $weeklyHumans = HumanData::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
+        $monthlyHumans = HumanData::whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->count();
+        $humanscount = HumanData::count();
+
+        return view('backend.admin-dashboard', compact('humanscount', 'todayHuman', 'weeklyHumans', 'monthlyHumans'));
+    }
+    public function humanList(Request $request)
+    {
+       if ($request->has('search') && !empty($request->search)) {
+            $humans = HumanData::where('name', 'LIKE', '%'.$request->search.'%')
+                ->orWhere('phone', 'LIKE', '%'.$request->search.'%')
+                ->orWhere('blood', 'LIKE', '%'.$request->search.'%')
+                ->orWhere('nid', 'LIKE', '%'.$request->search.'%')
+                ->orWhere('dob', 'LIKE', '%'.$request->search.'%')
+                ->orWhere('age', 'LIKE', '%'.$request->search.'%')
+                ->orWhere('email', 'LIKE', '%'.$request->search.'%')
+                ->orWhere('address', 'LIKE', '%'.$request->search.'%')->get();
+        }
+        else {
+            $humans = HumanData::all(); // search না থাকলে সব ডেটা দেখাবে
+        }
         return view('backend.human-list', compact('humans'));
     }
     public function humanListDelete($id)
@@ -115,4 +127,32 @@ class AdminController extends Controller
         toastr()->success('You Ragistert successfully!');
         return redirect()->back();
     }
+
+    // reports
+    public function bloodGroup(Request $request)
+    {
+        if ($request->has('search') && !empty($request->search)) {
+            $humans = HumanData::where('name', 'LIKE', '%'.$request->search.'%')
+                ->orWhere('phone', 'LIKE', '%'.$request->search.'%')
+                ->orWhere('blood', 'LIKE', '%'. $request->search.'%')
+                ->orWhere('address', 'LIKE', '%'. $request->search.'%')
+                ->get();
+        } else {
+            $humans = HumanData::all(); // search না থাকলে সব ডেটা দেখাবে
+        }
+
+        return view('backend.blood-group', compact('humans'));
+    }
+
+    public function age()
+    {
+        $humans = HumanData::get();
+        return view('backend.human-age', compact('humans'));
+    }
+    public function humanProfile($id)
+    {
+    $human = HumanData::find($id);
+    return view('backend.human-profile', compact('human'));
+    }
+
 }

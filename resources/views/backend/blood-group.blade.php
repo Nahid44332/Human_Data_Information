@@ -6,7 +6,7 @@
 
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            <title>AdminLTE 4 | Simple Tables</title>
+            <title>Admin Dashboard</title>
             <!--begin::Primary Meta Tags-->
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             <meta name="title" content="AdminLTE 4 | Simple Tables" />
@@ -49,12 +49,12 @@
                             <!--begin::Row-->
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <h3 class="mb-0">Human List</h3>
+                                    <h3 class="mb-0">Blood Group Reports</h3>
                                 </div>
                                 <div class="col-sm-6">
                                     <ol class="breadcrumb float-sm-end">
                                         <li class="breadcrumb-item"><a href="/admin/dashboard/">Home</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Human List List</li>
+                                        <li class="breadcrumb-item active" aria-current="page">Blood Group Reports</li>
                                     </ol>
                                 </div>
                             </div>
@@ -70,40 +70,33 @@
                             <!--begin::Row-->
                             <div class="row">
                                 <div class="col-md-12">
-                                    <form action="{{ url('/admin/human-list') }}" method="GET" class="mb-3">
+                                    <form action="{{url('/admin/report/blood-group')}}" method="GET" class="mb-3">
                                         @csrf
                                         <div class="row">
                                             <div class="col-md-8">
                                                 <input type="text" class="form-control" name="search" id="search"
-                                                    placeholder="Search by name, phone, nid or address" required>
+                                                    placeholder="Search by name or blood" required>
                                             </div>
                                             <div class="col-md-4 d-flex">
                                                 <button type="submit" class="btn btn-primary me-2">Search</button>
-                                                <a href="{{ url('/admin/human-list') }}" class="btn btn-danger">Clear</a>
+                                                <a href="{{url('/admin/report/blood-group')}}" class="btn btn-danger">Clear</a>
                                             </div>
                                         </div>
                                     </form>
                                     <!-- /.card -->
                                     <div class="card mb-4">
                                         <div class="card-header">
-                                            <h3 class="card-title">Manage Human</h3>
+                                            <h3 class="card-title">Manage BLood Group</h3>
                                         </div>
                                         <!-- /.card-header -->
-                                       <div class="card-body p-0 table-responsive">
-                                            <table class="table table-sm table-bordered table-hover mb-0">
+                                        <div class="card-body p-0">
+                                            <table class="table table-sm">
                                                 <thead>
                                                     <tr>
                                                         <th class="text-success">SL</th>
                                                         <th class="text-success">name</th>
-                                                        <th class="text-success">Father Name</th>
-                                                        <th class="text-success">Mother Name</th>
-                                                        <th class="text-success">NID No</th>
-                                                        <th class="text-success">Date of birth</th>
-                                                        <th class="text-success">Age</th>
-                                                        <th class="text-success">Email</th>
-                                                        <th class="text-success">Blood</th>
                                                         <th class="text-success">Phone</th>
-                                                        <th class="text-success">Gender</th>
+                                                        <th class="text-success">Blood</th>
                                                         <th class="text-success">Address</th>
                                                         <th class="text-success">Action</th>
                                                     </tr>
@@ -113,26 +106,11 @@
                                                         <tr>
                                                             <td>{{ $loop->index + 1 }}</td>
                                                             <td>{{ $human->name }}</td>
-                                                            <td>{{ $human->father_name }}</td>
-                                                            <td>{{ $human->mother_name }}</td>
-                                                            <td>{{ $human->nid }}</td>
-                                                            <td>{{ $human->dob }}</td>
-                                                            <td>{{ $human->age }}</td>
-                                                            <td>{{ $human->email }}</td>
-                                                            <td>{{ $human->blood }}</td>
                                                             <td>{{ $human->phone }}</td>
-                                                            <td>{{ $human->gender }}</td>
+                                                            <td>{{ $human->blood }}</td>
                                                             <td>{{ $human->address }}</td>
                                                             <td>
-                                                                <a href="{{ url('/admin/human-list/edit/'.$human->id) }}"
-                                                                    class="btn" style="color: blue"><i
-                                                                        class="fa-solid fa-pen-to-square"></i></a>
-                                                                <a href="{{ url('/admin/human-list/delete/'.$human->id) }}"
-                                                                    class="btn" style="color: red"><i
-                                                                        class="fa-solid fa-trash"></i></a>
-                                                                <a href="{{ url('/admin/human/profile/'.$human->id)}}"
-                                                                    class="btn" style="color: green">
-                                                                    <i class="fa fa-user"></i></a>
+                                                                <a href="#" class="btn" style="color: blue"><i class="fa-solid fa-user"></i></a>
                                                             </td>
                                                         </tr>
                                                     @endforeach

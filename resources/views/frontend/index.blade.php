@@ -148,7 +148,7 @@
                 if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
                     age--;
                 }
-                document.getElementById('age').value = age + " বছর";
+                document.getElementById('age').value = age;
             } else {
                 document.getElementById('age').value = '';
             }

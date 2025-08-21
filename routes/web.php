@@ -33,4 +33,9 @@ Route::get('/admin/monthly-humans', [AdminController::class, 'monthlyHumans']);
 
 // add Human
 Route::get('/admin/add-human', [AdminController::class, 'addHumans']);
-Route::post('/admin/store-human', [AdminController::class, 'storeHumans']); 
+Route::post('/admin/store-human', [AdminController::class, 'storeHumans']);
+
+//reports
+Route::get('/admin/report/blood-group', [AdminController::class, 'bloodGroup']);
+Route::get('/admin/report/age', [AdminController::class, 'age']);
+Route::get('/admin/human/profile/{id}', [AdminController::class, 'humanProfile']);
