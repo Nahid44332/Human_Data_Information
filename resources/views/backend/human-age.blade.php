@@ -93,7 +93,7 @@
                                                             <td>{{$human->name}}</td>
                                                             <td>{{$human->age}}</td>
                                                             <td>
-                                                                <a href="#" class="btn" style="color: blue"><i class="fa-solid fa-user"></i></a>
+                                                                <a href="{{ url('/admin/human/profile/'.$human->id)}}" class="btn" style="color: blue"><i class="fa-solid fa-user"></i></a>
                                                             </td>
                                                         </tr>
                                                     @endforeach

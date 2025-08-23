@@ -86,14 +86,33 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{url('/admin/report/blood-group')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="fa-solid fa-droplet"></i>
                                 <p>Blood Group</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{url('/admin/report/age')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="fa-solid fa-calendar-days"></i>
                                 <p>Age</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                {{-- Settings --}}
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="fa-solid fa-gear"></i>
+                        <p>
+                            Settings
+                            <i class="nav-arrow bi bi-chevron-right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{url('/admin/profile-settings')}}" class="nav-link">
+                                <i class="fa-solid fa-user"></i>
+                                <p>Profile Setting</p>
                             </a>
                         </li>
                     </ul>

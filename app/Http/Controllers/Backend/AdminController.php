@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\HumanData;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+
 
 class AdminController extends Controller
 {
@@ -25,17 +28,16 @@ class AdminController extends Controller
     }
     public function humanList(Request $request)
     {
-       if ($request->has('search') && !empty($request->search)) {
-            $humans = HumanData::where('name', 'LIKE', '%'.$request->search.'%')
-                ->orWhere('phone', 'LIKE', '%'.$request->search.'%')
-                ->orWhere('blood', 'LIKE', '%'.$request->search.'%')
-                ->orWhere('nid', 'LIKE', '%'.$request->search.'%')
-                ->orWhere('dob', 'LIKE', '%'.$request->search.'%')
-                ->orWhere('age', 'LIKE', '%'.$request->search.'%')
-                ->orWhere('email', 'LIKE', '%'.$request->search.'%')
-                ->orWhere('address', 'LIKE', '%'.$request->search.'%')->get();
-        }
-        else {
+        if ($request->has('search') && !empty($request->search)) {
+            $humans = HumanData::where('name', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('phone', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('blood', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('nid', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('dob', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('age', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('email', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('address', 'LIKE', '%' . $request->search . '%')->get();
+        } else {
             $humans = HumanData::all(); // search না থাকলে সব ডেটা দেখাবে
         }
         return view('backend.human-list', compact('humans'));
@@ -132,10 +134,10 @@ class AdminController extends Controller
     public function bloodGroup(Request $request)
     {
         if ($request->has('search') && !empty($request->search)) {
-            $humans = HumanData::where('name', 'LIKE', '%'.$request->search.'%')
-                ->orWhere('phone', 'LIKE', '%'.$request->search.'%')
-                ->orWhere('blood', 'LIKE', '%'. $request->search.'%')
-                ->orWhere('address', 'LIKE', '%'. $request->search.'%')
+            $humans = HumanData::where('name', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('phone', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('blood', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('address', 'LIKE', '%' . $request->search . '%')
                 ->get();
         } else {
             $humans = HumanData::all(); // search না থাকলে সব ডেটা দেখাবে
@@ -151,8 +153,47 @@ class AdminController extends Controller
     }
     public function humanProfile($id)
     {
-    $human = HumanData::find($id);
-    return view('backend.human-profile', compact('human'));
+        $human = HumanData::find($id);
+        return view('backend.human-profile', compact('human'));
     }
+
+
+    // admin profile
+    public function adminProfile()
+    {
+        return view('backend.admin-profile');
+    }
+    
+    public function profileSettings()
+    {
+        return view('backend.profile-setting');
+    }
+
+   public function updateProfile(Request $request)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'new_email' => 'required|email|confirmed',
+        'current_password' => 'required',
+        'new_password' => 'nullable|confirmed|min:6',
+    ]);
+
+    $admin = Auth::user();
+
+    if (!Hash::check($request->current_password, $admin->password)) {
+        return back()->with('error', 'Current password is incorrect!');
+    }
+
+    $admin->name = $request->name;
+    $admin->email = $request->new_email;
+
+    if ($request->new_password) {
+        $admin->password = Hash::make($request->new_password);
+    }
+
+    $admin->save();
+
+    return back()->with('success', 'Profile updated successfully!');
+}
 
 }

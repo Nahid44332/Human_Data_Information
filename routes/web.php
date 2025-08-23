@@ -39,3 +39,8 @@ Route::post('/admin/store-human', [AdminController::class, 'storeHumans']);
 Route::get('/admin/report/blood-group', [AdminController::class, 'bloodGroup']);
 Route::get('/admin/report/age', [AdminController::class, 'age']);
 Route::get('/admin/human/profile/{id}', [AdminController::class, 'humanProfile']);
+
+//admin profile...
+Route::get('/admin/admin-profile', [AdminController::class, 'adminProfile']);
+Route::get('/admin/profile-settings', [AdminController::class, 'profileSettings']);
+Route::post('/admin/update-profile', [AdminController::class, 'updateProfile']);
