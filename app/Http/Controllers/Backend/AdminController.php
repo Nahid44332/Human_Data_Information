@@ -16,15 +16,34 @@ class AdminController extends Controller
     {
         $this->middleware('auth');
     }
-    public function adminDashboard()
-    {
-        $today = Carbon::today();
-        $todayHuman = HumanData::whereDate('created_at', $today)->count();
-        $weeklyHumans = HumanData::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
-        $monthlyHumans = HumanData::whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->count();
-        $humanscount = HumanData::count();
+   public function adminDashboard()
+{
+    $today = Carbon::today();
+    $todayHuman = HumanData::whereDate('created_at', $today)->count();
+    $weeklyHumans = HumanData::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
+    $monthlyHumans = HumanData::whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->count();
+    $humanscount = HumanData::count();
+    $maleCount = HumanData::where('gender', 'male')->count();
+    $femaleCount = HumanData::where('gender', 'female')->count();
 
-        return view('backend.admin-dashboard', compact('humanscount', 'todayHuman', 'weeklyHumans', 'monthlyHumans'));
+    // --- Monthly Data for Chart ---
+    $monthlyLabels = [];
+    $monthlyData = [];
+    for ($m = 1; $m <= 12; $m++) {
+        $monthlyLabels[] = Carbon::create()->month($m)->format('M');
+        $monthlyData[] = HumanData::whereMonth('created_at', $m)->count();
+    }
+
+    // --- Last 7 Days Data for Chart ---
+    $weeklyLabels = [];
+    $weeklyData = [];
+    for ($i = 6; $i >= 0; $i--) {
+        $date = Carbon::today()->subDays($i);
+        $weeklyLabels[] = $date->format('d M');
+        $weeklyData[] = HumanData::whereDate('created_at', $date)->count();
+    }
+
+    return view('backend.admin-dashboard', compact('humanscount', 'todayHuman', 'weeklyHumans', 'monthlyHumans', 'monthlyLabels', 'monthlyData', 'weeklyLabels', 'weeklyData', 'maleCount', 'femaleCount'));
     }
     public function humanList(Request $request)
     {
