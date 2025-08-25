@@ -89,18 +89,14 @@
                                             <h3 class="card-title">Manage Human</h3>
                                         </div>
                                         <!-- /.card-header -->
-                                       <div class="card-body p-0 table-responsive">
+                                        <div class="card-body p-0 table-responsive">
                                             <table class="table table-sm table-bordered table-hover mb-0">
                                                 <thead>
                                                     <tr>
                                                         <th class="text-success">SL</th>
-                                                        <th class="text-success">name</th>
-                                                        <th class="text-success">Father Name</th>
-                                                        <th class="text-success">Mother Name</th>
+                                                        <th class="text-success">name</th>         
                                                         <th class="text-success">NID No</th>
                                                         <th class="text-success">Date of birth</th>
-                                                        <th class="text-success">Age</th>
-                                                        <th class="text-success">Email</th>
                                                         <th class="text-success">Blood</th>
                                                         <th class="text-success">Phone</th>
                                                         <th class="text-success">Gender</th>
@@ -112,27 +108,49 @@
                                                     @foreach ($humans as $human)
                                                         <tr>
                                                             <td>{{ $loop->index + 1 }}</td>
-                                                            <td>{{ $human->name }}</td>
-                                                            <td>{{ $human->father_name }}</td>
-                                                            <td>{{ $human->mother_name }}</td>
+                                                            <td>{{ $human->name }}</td>                                  
                                                             <td>{{ $human->nid }}</td>
                                                             <td>{{ $human->dob }}</td>
-                                                            <td>{{ $human->age }}</td>
-                                                            <td>{{ $human->email }}</td>
                                                             <td>{{ $human->blood }}</td>
                                                             <td>{{ $human->phone }}</td>
                                                             <td>{{ $human->gender }}</td>
                                                             <td>{{ $human->address }}</td>
                                                             <td>
-                                                                <a href="{{ url('/admin/human-list/edit/'.$human->id) }}"
-                                                                    class="btn" style="color: blue"><i
-                                                                        class="fa-solid fa-pen-to-square"></i></a>
-                                                                <a href="{{ url('/admin/human-list/delete/'.$human->id) }}"
-                                                                    class="btn" style="color: red"><i
-                                                                        class="fa-solid fa-trash"></i></a>
-                                                                <a href="{{ url('/admin/human/profile/'.$human->id)}}"
-                                                                    class="btn" style="color: green">
-                                                                    <i class="fa fa-user"></i></a>
+                                                                <div class="d-flex align-items-center gap-2">
+
+                                                                    {{-- Edit --}}
+                                                                    <a href="{{ url('/admin/human-list/edit/' . $human->id) }}"
+                                                                        class="btn btn-sm btn-outline-primary">
+                                                                        <i class="fa-solid fa-pen-to-square"></i>
+                                                                    </a>
+
+                                                                    {{-- Delete --}}
+                                                                    <a href="{{ url('/admin/human-list/delete/' . $human->id) }}"
+                                                                        class="btn btn-sm btn-outline-danger">
+                                                                        <i class="fa-solid fa-trash"></i>
+                                                                    </a>
+
+                                                                    {{-- শুধু Active হলে Profile দেখাবে --}}
+                                                                    @if ($human->status == 1)
+                                                                        <a href="{{ url('/admin/human/profile/' . $human->id) }}"
+                                                                            class="btn btn-sm btn-outline-success">
+                                                                            <i class="fa fa-user"></i>
+                                                                        </a>
+                                                                    @endif
+
+                                                                    {{-- Toggle Active/Inactive --}}
+                                                                    <form
+                                                                        action="{{ url('/admin/human-list/toggle-status/' . $human->id) }}"
+                                                                        method="POST" class="m-0 p-0">
+                                                                        @csrf
+                                                                        <div class="form-check form-switch"
+                                                                            style="transform: scale(1.2);">
+                                                                            <input class="form-check-input" type="checkbox"
+                                                                                onchange="this.form.submit()"
+                                                                                {{ $human->status ? 'checked' : '' }}>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
                                                             </td>
                                                         </tr>
                                                     @endforeach

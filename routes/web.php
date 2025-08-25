@@ -44,3 +44,4 @@ Route::get('/admin/human/profile/{id}', [AdminController::class, 'humanProfile']
 Route::get('/admin/admin-profile', [AdminController::class, 'adminProfile']);
 Route::get('/admin/profile-settings', [AdminController::class, 'profileSettings']);
 Route::post('/admin/update-profile', [AdminController::class, 'updateProfile']);
+Route::post('/admin/human-list/toggle-status/{id}', [AdminController::class, 'toggleStatus']);

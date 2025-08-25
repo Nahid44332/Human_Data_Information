@@ -25,6 +25,7 @@ return new class extends Migration
             $table->longText('address');
             $table->string('gender');
             $table->string('profession');
+            $table->integer('status')->default(1);
             $table->timestamps();
         });
     }

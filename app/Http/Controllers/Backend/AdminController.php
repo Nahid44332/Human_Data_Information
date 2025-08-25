@@ -16,34 +16,34 @@ class AdminController extends Controller
     {
         $this->middleware('auth');
     }
-   public function adminDashboard()
-{
-    $today = Carbon::today();
-    $todayHuman = HumanData::whereDate('created_at', $today)->count();
-    $weeklyHumans = HumanData::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
-    $monthlyHumans = HumanData::whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->count();
-    $humanscount = HumanData::count();
-    $maleCount = HumanData::where('gender', 'male')->count();
-    $femaleCount = HumanData::where('gender', 'female')->count();
+    public function adminDashboard()
+    {
+        $today = Carbon::today();
+        $todayHuman = HumanData::whereDate('created_at', $today)->count();
+        $weeklyHumans = HumanData::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
+        $monthlyHumans = HumanData::whereBetween('created_at', [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->count();
+        $humanscount = HumanData::count();
+        $maleCount = HumanData::where('gender', 'male')->count();
+        $femaleCount = HumanData::where('gender', 'female')->count();
 
-    // --- Monthly Data for Chart ---
-    $monthlyLabels = [];
-    $monthlyData = [];
-    for ($m = 1; $m <= 12; $m++) {
-        $monthlyLabels[] = Carbon::create()->month($m)->format('M');
-        $monthlyData[] = HumanData::whereMonth('created_at', $m)->count();
-    }
+        // --- Monthly Data for Chart ---
+        $monthlyLabels = [];
+        $monthlyData = [];
+        for ($m = 1; $m <= 12; $m++) {
+            $monthlyLabels[] = Carbon::create()->month($m)->format('M');
+            $monthlyData[] = HumanData::whereMonth('created_at', $m)->count();
+        }
 
-    // --- Last 7 Days Data for Chart ---
-    $weeklyLabels = [];
-    $weeklyData = [];
-    for ($i = 6; $i >= 0; $i--) {
-        $date = Carbon::today()->subDays($i);
-        $weeklyLabels[] = $date->format('d M');
-        $weeklyData[] = HumanData::whereDate('created_at', $date)->count();
-    }
+        // --- Last 7 Days Data for Chart ---
+        $weeklyLabels = [];
+        $weeklyData = [];
+        for ($i = 6; $i >= 0; $i--) {
+            $date = Carbon::today()->subDays($i);
+            $weeklyLabels[] = $date->format('d M');
+            $weeklyData[] = HumanData::whereDate('created_at', $date)->count();
+        }
 
-    return view('backend.admin-dashboard', compact('humanscount', 'todayHuman', 'weeklyHumans', 'monthlyHumans', 'monthlyLabels', 'monthlyData', 'weeklyLabels', 'weeklyData', 'maleCount', 'femaleCount'));
+        return view('backend.admin-dashboard', compact('humanscount', 'todayHuman', 'weeklyHumans', 'monthlyHumans', 'monthlyLabels', 'monthlyData', 'weeklyLabels', 'weeklyData', 'maleCount', 'femaleCount'));
     }
     public function humanList(Request $request)
     {
@@ -182,37 +182,45 @@ class AdminController extends Controller
     {
         return view('backend.admin-profile');
     }
-    
+
     public function profileSettings()
     {
         return view('backend.profile-setting');
     }
 
-   public function updateProfile(Request $request)
-{
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'new_email' => 'required|email|confirmed',
-        'current_password' => 'required',
-        'new_password' => 'nullable|confirmed|min:6',
-    ]);
+    public function updateProfile(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'new_email' => 'required|email|confirmed',
+            'current_password' => 'required',
+            'new_password' => 'nullable|confirmed|min:6',
+        ]);
 
-    $admin = Auth::user();
+        $admin = Auth::user();
 
-    if (!Hash::check($request->current_password, $admin->password)) {
-        return back()->with('error', 'Current password is incorrect!');
+        if (!Hash::check($request->current_password, $admin->password)) {
+            return back()->with('error', 'Current password is incorrect!');
+        }
+
+        $admin->name = $request->name;
+        $admin->email = $request->new_email;
+
+        if ($request->new_password) {
+            $admin->password = Hash::make($request->new_password);
+        }
+
+        $admin->save();
+
+        return back()->with('success', 'Profile updated successfully!');
     }
+    public function toggleStatus($id)
+    {
+        $human = HumanData::findOrFail($id);
+        $human->status = $human->status == 1 ? 0 : 1;
+        $human->save();
 
-    $admin->name = $request->name;
-    $admin->email = $request->new_email;
-
-    if ($request->new_password) {
-        $admin->password = Hash::make($request->new_password);
+        toastr()->success('Status updated successfully!');
+        return redirect()->back();
     }
-
-    $admin->save();
-
-    return back()->with('success', 'Profile updated successfully!');
-}
-
 }
